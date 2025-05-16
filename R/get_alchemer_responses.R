@@ -12,7 +12,7 @@
 get_alchemer_responses <- function(id, page, resultsperpage) {
   if (Sys.getenv('ALCHEMER_KEY') == "") {
     print("ERROR: Missing Alchemer authentication from alchemer_auth() function")
-  } else if (str_length(Sys.getenv('ALCHEMER_KEY') > 0)) {
+  } else if (stringr::str_length(Sys.getenv('ALCHEMER_KEY') > 0)) {
     response <- httr::GET(url = str_glue("https://api.alchemer.com/v5/survey/{id}/surveyresponse?api_token={Sys.getenv('ALCHEMER_KEY')}&api_token_secret={Sys.getenv('ALCHEMER_SECRET')}&page={page}&resultsperpage={resultsperpage}")) |>
       content("parsed")
     responses <- as.data.frame(do.call(rbind, response$data))
