@@ -36,7 +36,7 @@ alchemer_clean <- function(df, keep_test = FALSE, keep_dq = FALSE, keep_metadata
     tidyr::unnest_wider(c(id, status, date_submitted), "_")
 
   # get proper timezone (defaults to UTC if not EST/EDT which it should be)
-  timesplit <- df |> dplyr::head(1) |> dplyr::pull(date_submitted_1) |> stringr::str_split(" ")
+  timesplit <- df |> utils::head(1) |> dplyr::pull(date_submitted_1) |> stringr::str_split(" ")
   bad_timezone <- timesplit[[1]][3]
   if (bad_timezone %in% c("EST", "EDT")) {
     timezone <- "America/New_York"
