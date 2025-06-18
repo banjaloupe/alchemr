@@ -93,10 +93,10 @@ alchemer_clean <- function(df, keep_test = FALSE, keep_dq = FALSE, keep_metadata
   df <- df |>
     tidyr::unnest_wider(tidyselect::everything(), names_sep = "_") |>
     dplyr::rename_with(~gsub("_1$", "", .x)) |>
-    dplyr::mutate(dplyr::across(tidyselect::matches("\\d$"), ~ purrr::map(.x, \(y) purrr::pluck(y, "answer")))) |>
+    dplyr::mutate(dplyr::across(tidyselect::matches("\\d{5}$"), ~ purrr::map(.x, \(y) purrr::pluck(y, "answer")))) |>
     tidyr::unnest_wider(tidyselect::everything(), names_sep = "_") |>
     dplyr::rename_with(~gsub("_1$", "", .x)) |>
-    dplyr::mutate(dplyr::across(tidyselect::matches("\\d$"), ~ ifelse(. == "NULL", NA, .)))
+    dplyr::mutate(dplyr::across(tidyselect::matches("\\d{5}$"), ~ ifelse(. == "NULL", NA, .)))
 
   # get the cols to return
   return(df |>
